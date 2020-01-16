@@ -85,9 +85,16 @@ public class CensusAnalyser {
         List list = censusList.values().stream()
                 .sorted(censusComparator)
                 .collect(Collectors.toList());
-        System.out.println("List"+list);
         String sortedStateCensusJson = new Gson().toJson(list);
-        System.out.println("Json"+sortedStateCensusJson);
+        return sortedStateCensusJson;
+    }
+
+    public String getSortedPopulationDensity() {
+        Comparator<IndiaCensusDAO> censusComparator = Comparator.comparing(census -> census.densityPerSqkm);
+        List list = censusList.values().stream()
+                .sorted(censusComparator)
+                .collect(Collectors.toList());
+        String sortedStateCensusJson = new Gson().toJson(list);
         return sortedStateCensusJson;
     }
 
