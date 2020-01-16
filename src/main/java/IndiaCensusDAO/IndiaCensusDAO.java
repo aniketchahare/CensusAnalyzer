@@ -19,4 +19,14 @@ public class IndiaCensusDAO {
     public IndiaCensusDAO(IndiaStateCodeCSV stateCSV) {
         state = stateCSV.StateName;
     }
+
+    @Override
+    public String toString() {
+        return "IndiaCensusDAO{" +
+                "state='" + state + '\'' +
+                ", population=" + population +
+                ", densityPerSqkm=" + densityPerSqkm +
+                ", areaInSqKm=" + areaInSqKm +
+                '}';
+    }
 }

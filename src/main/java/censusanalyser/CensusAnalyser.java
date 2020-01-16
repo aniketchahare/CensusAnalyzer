@@ -12,6 +12,7 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 public class CensusAnalyser {
@@ -76,6 +77,17 @@ public class CensusAnalyser {
         Comparator<IndiaCensusDAO> censusComparator = Comparator.comparing(census -> census.state);
 //        this.sort(censusComparator);
         String sortedStateCensusJson = new Gson().toJson(this.censusList);
+        return sortedStateCensusJson;
+    }
+
+    public String getSortedPopulationState() {
+        Comparator<IndiaCensusDAO> censusComparator = Comparator.comparing(census -> census.population);
+        List list = censusList.values().stream()
+                .sorted(censusComparator)
+                .collect(Collectors.toList());
+        System.out.println("List"+list);
+        String sortedStateCensusJson = new Gson().toJson(list);
+        System.out.println("Json"+sortedStateCensusJson);
         return sortedStateCensusJson;
     }
 
