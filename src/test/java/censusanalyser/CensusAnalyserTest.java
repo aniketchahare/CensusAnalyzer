@@ -141,8 +141,6 @@ public class CensusAnalyserTest {
             String sortedCensusData = censusAnalyser.getStateWiseSortedCensusData();
             IndiaCensusCSV[] censusCSV = new Gson().fromJson(sortedCensusData, IndiaCensusCSV[].class);
             Assert.assertEquals("Andhra Pradesh", censusCSV[0].state);
-        } catch( CensusAnalyserException e) {
-
-        }
+        } catch( CensusAnalyserException e) { }
     }
 }
