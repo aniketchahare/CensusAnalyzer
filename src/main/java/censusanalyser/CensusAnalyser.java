@@ -81,20 +81,29 @@ public class CensusAnalyser {
     }
 
     public String getSortedPopulationState() {
-        Comparator<IndiaCensusDAO> censusComparator = Comparator.comparing(census -> census.population);
         List list = censusList.values().stream()
-                .sorted(censusComparator)
+                .sorted((data1,data2)->data1.population - data2.population > 0 ? -1 : 1)
                 .collect(Collectors.toList());
         String sortedStateCensusJson = new Gson().toJson(list);
         return sortedStateCensusJson;
     }
 
     public String getSortedPopulationDensity() {
-        Comparator<IndiaCensusDAO> censusComparator = Comparator.comparing(census -> census.densityPerSqkm);
         List list = censusList.values().stream()
-                .sorted(censusComparator)
+                .sorted((data1,data2)->data1.densityPerSqkm - data2.densityPerSqkm > 0 ? -1 : 1)
                 .collect(Collectors.toList());
         String sortedStateCensusJson = new Gson().toJson(list);
+        System.out.println(sortedStateCensusJson);
+        return sortedStateCensusJson;
+    }
+
+    public String getSortedStateByArea() {
+        //Comparator<IndiaCensusDAO> censusComparator = Comparator.comparing(census -> census.areaInSqKm);
+        List list = censusList.values().stream()
+                .sorted((data1,data2)->data1.areaInSqKm - data2.areaInSqKm > 0 ? -1 : 1)
+                .collect(Collectors.toList());
+        String sortedStateCensusJson = new Gson().toJson(list);
+        System.out.println(sortedStateCensusJson);
         return sortedStateCensusJson;
     }
 
