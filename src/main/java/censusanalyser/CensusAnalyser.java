@@ -1,15 +1,8 @@
 package censusanalyser;
 
-import CSVBuilder.CSVBuilderException;
-import CSVBuilder.CSVBuilderFactory;
-import CSVBuilder.ICSVBuilder;
 import IndiaCensusDAO.CensusDAO;
 import com.google.gson.Gson;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -20,13 +13,10 @@ public class CensusAnalyser {
     Map<String, CensusDAO> censusList = null;
     private List<IndiaStateCodeCSV> stateCodeList;
 
-    public CensusAnalyser() {
-        this.censusList = new HashMap<>();
-        this.stateCodeList = new ArrayList<>();
-    }
+    public CensusAnalyser() { }
 
     public int loadCensusData(Country country, String... csvFilePath) throws CensusAnalyserException {
-        censusList = new CensusLoader().loadCensusData(country, csvFilePath);
+        censusList = CensusAdapterFactory.getCensusData(country, csvFilePath);
         return censusList.size();
     }
 
