@@ -16,6 +16,7 @@ public class CensusAnalyserTest {
     private static final String WRONG_STATECODE_CSV_FILE_PATH = "/home/admin123/Documents/CensusAnalyser/CensusAnalyser/src/main/IndiaStateCode.csv";
     private static final String WRONG_STATECODE_CSV_FILE_TYPE = "/home/admin123/Documents/CensusAnalyser/CensusAnalyser/src/test/resources/IndiaStateCode.txt";
     private static final String INDIA_STATECODE_CSV_FILE_WITH_WRONG_DELIMETER = "/home/admin123/Documents/CensusAnalyser/CensusAnalyser/src/test/resources/IndiaStateCodeDelimeter.csv";
+    private static final String US_CENSUS_CSV_FILE_PATH = "/home/admin123/Documents/CensusAnalyser/CensusAnalyser/src/test/resources/USCensusData.csv";
 
     @Test
     public void givenIndianCensusCSVFileReturnsCorrectRecords() {
@@ -215,6 +216,16 @@ public class CensusAnalyserTest {
             String sortedPopulationState = censusAnalyser.getSortedStateByArea();
             IndiaCensusCSV[] censusCSV = new Gson().fromJson(sortedPopulationState, IndiaCensusCSV[].class);
             Assert.assertEquals("Goa", censusCSV[28].state);
+        } catch (CensusAnalyserException e) {
+        }
+    }
+
+    @Test
+    public void givenUSCensusData_ShouldReturnCorrectRecords() {
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            int censusDataCnt = censusAnalyser.loadUSCensusData(US_CENSUS_CSV_FILE_PATH);
+            Assert.assertEquals(51, censusDataCnt);
         } catch (CensusAnalyserException e) {
         }
     }
