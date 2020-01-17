@@ -1,8 +1,6 @@
 package IndiaCensusDAO;
 
-import censusanalyser.IndiaCensusCSV;
-import censusanalyser.IndiaStateCodeCSV;
-import censusanalyser.USCensusCSV;
+import censusanalyser.*;
 
 public class CensusDAO {
     public String state;
@@ -38,5 +36,11 @@ public class CensusDAO {
                 ", populationDensity=" + populationDensity +
                 ", totalArea=" + totalArea +
                 '}';
+    }
+
+    public Object getCensusDTO(CensusAnalyser.Country country) {
+        if(country.equals(CensusAnalyser.Country.INDIA))
+            return new USCensusCSV(state, stateCode, population, populationDensity,totalArea);
+        return new IndiaCensusCSV(state, population, (int) populationDensity, (int) totalArea);
     }
 }
