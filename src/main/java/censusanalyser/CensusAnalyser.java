@@ -16,6 +16,7 @@ import java.util.stream.StreamSupport;
 
 public class CensusAnalyser {
 
+    public enum Country { INDIA, US };
     Map<String, CensusDAO> censusList = null;
     private List<IndiaStateCodeCSV> stateCodeList;
 
@@ -24,16 +25,10 @@ public class CensusAnalyser {
         this.stateCodeList = new ArrayList<>();
     }
 
-    public int loadIndiaCensusData(String... csvFilePath) throws CensusAnalyserException {
-        censusList = new CensusLoader().loadCensusData(IndiaCensusCSV.class, csvFilePath);
+    public int loadCensusData(Country country, String... csvFilePath) throws CensusAnalyserException {
+        censusList = new CensusLoader().loadCensusData(country, csvFilePath);
         return censusList.size();
     }
-
-    public int loadUSCensusData(String csvFilePath) throws CensusAnalyserException {
-        censusList = new CensusLoader().loadCensusData(USCensusCSV.class, csvFilePath);
-        return censusList.size();
-    }
-
 
     private <E> int getCount(Iterator<E> iterator) {
         Iterable<E> csvIterable = () -> iterator;
