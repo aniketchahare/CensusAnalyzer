@@ -24,33 +24,13 @@ public class CensusAnalyser {
         this.stateCodeList = new ArrayList<>();
     }
 
-    public int loadIndiaStateCodeData(String csvFilePath) throws CensusAnalyserException {
-        try( Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
-            ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-            Iterator<IndiaStateCodeCSV> csvFileIterator = csvBuilder.getCSVFileIterator(reader, IndiaCensusCSV.class);
-            while(csvFileIterator.hasNext()){
-                IndiaStateCodeCSV censusCSV = csvFileIterator.next();
-                this.censusList.put(censusCSV.StateCode, new CensusDAO(censusCSV));
-            }
-            return this.censusList.size();
-        } catch (IOException e) {
-            throw new CensusAnalyserException(e.getMessage(),
-                    CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
-        } catch (RuntimeException e){
-            throw new CensusAnalyserException(e.getMessage(),
-                    CensusAnalyserException.ExceptionType.INCORRECT_FILE_DATA);
-        } catch (CSVBuilderException e) {
-            throw new CensusAnalyserException(e.getMessage(), e.type.name());
-        }
-    }
-
-    public int loadIndiaCensusData(String csvFilePath) throws CensusAnalyserException {
-        censusList = new CensusLoader().loadCensusData(csvFilePath, IndiaCensusCSV.class);
+    public int loadIndiaCensusData(String... csvFilePath) throws CensusAnalyserException {
+        censusList = new CensusLoader().loadCensusData(IndiaCensusCSV.class, csvFilePath);
         return censusList.size();
     }
 
     public int loadUSCensusData(String csvFilePath) throws CensusAnalyserException {
-        censusList = new CensusLoader().loadCensusData(csvFilePath, USCensusCSV.class);
+        censusList = new CensusLoader().loadCensusData(USCensusCSV.class, csvFilePath);
         return censusList.size();
     }
 

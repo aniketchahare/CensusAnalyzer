@@ -19,7 +19,7 @@ public class CensusDAO {
     }
 
     public CensusDAO(IndiaStateCodeCSV stateCSV) {
-        state = stateCSV.StateName;
+        state = stateCSV.State;
     }
 
     public CensusDAO(USCensusCSV censusCSV) {
